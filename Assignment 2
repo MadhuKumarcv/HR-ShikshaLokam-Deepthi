@@ -1,0 +1,29 @@
+def modify_string(s):
+    modified = []
+    n = len(s)
+    prev_changed = False
+    for i in range(n):
+        ascii_val = ord(s[i])
+        if ascii_val % 2 == 0 and not prev_changed and i < n - 1:
+            modified.append(chr(ascii_val))
+            next_ascii = ascii_val + (ascii_val % 7)
+            if next_ascii > 127:
+                modified.append(chr(83))
+            else:
+                modified.append(chr(next_ascii))
+                prev_changed = True
+        elif ascii_val % 2 != 0 and i > 0:
+            modified.append(chr(ascii_val))
+            prev_ascii = ascii_val - (ascii_val % 5)
+            if prev_ascii < 0:
+                modified[-2] = chr(83)
+            else:
+                modified[-2] = chr(prev_ascii)
+                prev_changed = True
+        else:
+            modified.append(chr(ascii_val))
+    return ''.join(modified)
+# Example usage
+s = "sHQen)"
+result = modify_string(s)
+print("Final Answer:", result)
