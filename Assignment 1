@@ -1,0 +1,20 @@
+def shortest_substrings(s, x):
+    substrings = []
+    for i in range(len(s)):
+        for j in range(i + x - 1, len(s)):
+            if s[i] == s[j]:
+                if j - i + 1 >= x:
+                    substrings.append(s[i:j + 1])
+    if substrings:
+        shortest_length = min(len(sub) for sub in substrings)
+        shortest_substrings = [sub for sub in substrings if len(sub) == shortest_length]
+        return shortest_substrings
+    else:
+        return "not-found"
+s = input("Enter the string: ")
+x = int(input("Enter the value of x: "))
+result = shortest_substrings(s, x)
+if result != "not-found":
+    print(f"\nAnswer: {' '.join(result)}")
+else:
+    print("Answer: not-found")
